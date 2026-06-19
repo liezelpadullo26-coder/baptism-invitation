@@ -689,33 +689,33 @@ window.scrollTo(0,0);
 
 function showThankYou(){
 
-
-let name=document.getElementById("guestName").value;
-
+let name = document.getElementById("guestName").value;
 
 if(name.trim()==""){
-
-alert("Please enter your name.");
-
-return;
-
+    alert("Please enter your name.");
+    return;
 }
 
+fetch("https://script.google.com/macros/s/AKfycbw51xxzTLcL8nSzRb6oNtTC1KqT3i8HxG1L3pbUPGwRruZTT_doGfIbPXceVqhzU52h5A/exec",{
+    method:"POST",
+    body:JSON.stringify({
+        name:name
+    })
+})
+.then(response=>response.text())
+.then(data=>{
 
+    document.getElementById("thankYouText").innerHTML =
+    "Thank you <b>"+name+"</b> for confirming your attendance! 💙<br><br>We are happy to celebrate this special day with you and our family.";
 
-document.getElementById("thankYouText").innerHTML=
+    document.getElementById("thankYouModal").style.display="flex";
 
-"Thank you <b>"+name+"</b> for confirming your attendance! 💙<br><br>We are happy to celebrate this special day with you and our family.";
-
-
-
-document.getElementById("thankYouModal").style.display="flex";
-
+})
+.catch(error=>{
+    alert("Unable to save RSVP. Please try again.");
+});
 
 }
-
-
-
 
 
 function closeModal(){
